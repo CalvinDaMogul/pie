@@ -84,16 +84,25 @@ const AppleBuilder = () => {
     pies.forEach((pies) => {
         pieString += `<div class="card">`;
         pieString += `<h2>${pies.name}</h2>`;
-        pieString += '<img src=${pies.imageUrl}></img>';
+        pieString += `<img src=${pies.imageUrl}></img>`;
         pieString += `</div>`;
     })
     
 
-    printToDom('card', pieString);
+    printToDom('pies', pieString);
+};
+
+const buttonClick =() => {
+    console.log('you clicked a button');
+};
+
+const buttonEvents = () => {
+    document.getElementById('Zoe').addEventListener('click',buttonClick);
 };
 
 const init =() => {
 
+    buttonEvents();
     AppleBuilder();
 };
 
