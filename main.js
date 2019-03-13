@@ -64,11 +64,11 @@ const pies = [
 
 const printToDom = (divId, textToPrint) => {
     const selectedDiv = document.getElementById(divId);
-    selectedDiv.innerHTML += textToPrint;
+    selectedDiv.innerHTML = textToPrint;
     console.log(selectedDiv);
 };
 
-const AppleBuilder = () => {
+const pieBuilder = (monkey) => {
     let pieString = '';
 
     // for(i = 0; i < pies.length; i++) {
@@ -81,10 +81,10 @@ const AppleBuilder = () => {
     // pieString =+ `<p>${pies[i].iceCream}</p>`;
     // pieString += `</div>`
 
-    pies.forEach((pies) => {
+    monkey.forEach((pie) => {
         pieString += `<div class="card">`;
-        pieString += `<h2>${pies.name}</h2>`;
-        pieString += `<img src=${pies.imageUrl}></img>`;
+        pieString += `<h2>${pie.name}</h2>`;
+        pieString += `<img src=${pie.imageUrl}></img>`;
         pieString += `</div>`;
     })
     
@@ -92,18 +92,37 @@ const AppleBuilder = () => {
     printToDom('pies', pieString);
 };
 
-const buttonClick =() => {
-    console.log('you clicked a button');
+const buttonClick =(e) => {
+    const buttonId = e.target.id;
+    //loop over the pies array
+    //if the value of the instructor key is the same as buttonId - keep that object
+    //once we have all the pies for the instructor - call pies
+    const selectedPies = [];
+    pies.forEach((pie) => {
+        if(pie.instructor === buttonId) {
+            selectedPies.push(pie);
+        }
+    });
+
+    if (buttonId === 'All') {
+        pieBuilder(pies);
+    }
+    else {
+        pieBuilder(selectedPies);
+    }
 };
 
 const buttonEvents = () => {
-    document.getElementById('Zoe').addEventListener('click',buttonClick);
+    document.getElementById('Zoe').addEventListener('click', buttonClick);
+    document.getElementById('Saul').addEventListener('click', buttonClick);
+    document.getElementById('Michael').addEventListener('click', buttonClick);
+    document.getElementById('All').addEventListener('click', buttonClick);
 };
 
 const init =() => {
 
     buttonEvents();
-    AppleBuilder();
+    pieBuilder(pies);
 };
 
-init ();
+init();
